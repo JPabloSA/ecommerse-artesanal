@@ -1,0 +1,102 @@
+{% extends 'base.html.twig' %}
+
+{% block script_encabezado %}
+	<link href="{{asset('public/css/scrolling-nav.css')}}" rel="stylesheet">
+  <link href="{{asset('public/css/simple-sidebar.css')}}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+
+<nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-dark">
+  <a class="navbar-brand" href="#" id="menu-toggle" href="#menu-toggle" style="padding:5px">
+    <i class="fa fa-list-ul fa-1x" aria-hidden="true"></i>  Menu
+  </a>
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse justify-content-between" id="navbar">
+    <div class="navbar-nav">
+    </div>
+    <div class="navbar-nav">
+      <a href="#" class="nav-item nav-link">
+        <i class="fa fa-user"></i> {{colaborador.Nombre}} ({{colaborador.Puesto}})
+      </a>
+      <a class="nav-item nav-link" href="{{path('logout')}}">
+        <i class="fas fa-sign-out-alt"></i> Cerrar Sesion
+      </a>
+    </div>
+  </div>
+    
+</nav>
+	<div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+              {# home page #}
+              <li>
+                  <a href="#" id="homerecepcion_page">
+                    <i><img class="img-rounded" src="{{asset('public/img/icons/homepage.png')}}"></i> {{empresa.Nombre}}</a>
+              </li>
+              {# habitaciones page #}
+              <li>
+                  <a href="#" id="pedidos_page">
+                    <i><img class="img-rounded" src="{{asset('public/img/icons/delivery.png')}}"></i> Pedidos</a>
+              </li>
+              <li>
+                  <a href="#" id="bodega_page">
+                    <i><img class="img-rounded" src="{{asset('public/img/icons/warehouse.png')}}"></i> Inventario</a>
+              </li>
+              <li>
+                  <a href="#" id="entregas_page">
+                    <i><img class="img-rounded" src="{{asset('public/img/icons/product.png')}}"></i> Entregas</a>
+              </li>
+              
+
+              
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+
+
+        <div id="page-content-wrapper" style="background-color:#FFFFFF; width:100%; height: 100%;">
+
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+
+{% endblock %}
+
+{% block script_extra %}
+<script type="text/javascript">
+
+      $(document).ready(function() {
+        $("#page-content-wrapper").load('{{path('homeRecepcion')}}');
+        $('#homerecepcion_page').click(function(){
+            $("#page-content-wrapper").load('{{path('homeRecepcion')}}');
+        });
+        $('#pedidos_page').click(function(){
+            $("#page-content-wrapper").load('{{path('pedidosRecepcion')}}');
+        });
+        $('#bodega_page').click(function(){
+            $("#page-content-wrapper").load('{{path('bodegaRecepcion')}}');
+        });
+        $('#entregas_page').click(function(){
+            $("#page-content-wrapper").load('{{path('entregasRecepcion')}}');
+        });
+      });
+
+</script>
+
+<script>
+$("#menu-toggle").click(function(e) {
+    e.preventDefault();
+    $("#wrapper").toggleClass("toggled");
+});
+</script>
+
+
+{% endblock %}

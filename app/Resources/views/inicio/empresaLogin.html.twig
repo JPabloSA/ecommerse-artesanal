@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Iniciar Sesion {% endblock %}
+
+{% block script_encabezado %}
+<link href="{{asset('public/css/estilo_login.css')}}" rel="stylesheet">
+
+{% endblock %}
+
+{% block nav_menu %}
+	<nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-primary">
+  <a class="navbar-brand" href="#" style="padding:5px">
+     Tienda Salcaja
+  </a>
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse justify-content-between" id="navbar">
+    <div class="navbar-nav">
+    </div>
+    <div class="navbar-nav">
+      <a href="{{path('principal')}}" class="nav-item nav-link">
+        Empresas
+      </a>
+      
+    </div>
+    
+    
+</nav>
+    
+{% endblock %}
+
+
+{% block body %}
+
+<div class="container-fluid" >
+		<div class="row">
+				<div class="form_bg">
+						<form action="{{path("login_check")}}" method="post">
+								 <h2 class="text-center">Iniciar Sesión</h2>
+								<br/>
+
+								<div class="form-group">
+										<input  id="username" name="_username" type="email" placeholder="Nombre usuario" size="30" class="form-control" value="" required>
+								</div>
+								<div class="form-group">
+										<p align="center">&nbsp;<input id="password" name="_password" type="password" placeholder="Password" size="30" class="form-control" required>
+								</div>
+								<br/>
+								<div class="align-center">
+
+									<button type="submit" name="Entrar" class="btn btn-primary btn-block" >
+										<i class="fa fa-sign-in-alt" aria-hidden="true"></i> Entrar
+									</button>
+									<a class="btn btn-success btn-block" href="{{path('registroCliente')}}" > Registrarse </a><br>
+									<input type="hidden" name="_target_path" value="/login">
+								</div>
+						</form>
+				</div>
+
+				{# NOTIFICACIONES #}
+				<div class="col-xs-12">
+				  <br>{#notifiaciones de algun error#}
+				<div class="col-lg-12">
+				  {% for message1 in app.session.flashbag().get('error') %}
+				    <div class="alert alert-danger">{{message1}}</div>
+				  {% endfor %}
+				</div>
+
+				{#FIN NOTIFIACIONES#}
+</div>
+</div>
+
+{# imagen de fondo  style=width:100%;height:610px  #}
+
+{% endblock %}

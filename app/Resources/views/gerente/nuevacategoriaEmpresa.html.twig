@@ -1,0 +1,46 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-10">
+      <h2>Crear nueva categoria</h2>
+    </div>
+    <div class="col-md-10">
+      {{ form_start(form, { 'attr': {'class': 'form-group','id':'form_categoria'}} ) }}
+      {{form_widget(form)}}
+      <br>
+
+      <button type="submit" class="btn btn-success">
+        <i class="fa fa-floppy-o fa-2x" aria-hidden="true"></i>  Guardar Categoria
+      </button>
+      {{form_end(form)}}
+      <button class="btn btn-danger" onclick="volver_cocinero()">Cancelar</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+
+        $('#form_categoria').submit(function (e) {
+        e.preventDefault();
+        var form =$(this);
+        $.ajax({
+            type:form.attr('method'),
+            url:"{{path("nuevocategoriaEmpresa")}}",
+            data:form.serialize(),
+            success: function (data) {
+              // For redirection
+              $("#page-content-wrapper").load("{{path('categorias')}}");
+              // This is for click the tab after success callback.
+              //setTimeout(function(){$("#form-stufa").click()},500);
+            },
+            error: function(){
+
+              }
+
+        });
+    });
+
+    function cancelar_cat(){
+      $("#page-content-wrapper").load("{{path('categorias')}}");
+    }
+</script>

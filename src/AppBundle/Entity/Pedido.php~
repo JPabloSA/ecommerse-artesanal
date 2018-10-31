@@ -1,0 +1,95 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Pedido
+ *
+ * @ORM\Table(name="pedido", indexes={@ORM\Index(name="fk_pedido_empresa1_idx", columns={"empresa_idempresa"}), @ORM\Index(name="fk_pedido_cliente1_idx", columns={"cliente_idcliente"})})
+ * @ORM\Entity
+ */
+class Pedido
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="idpedido", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idpedido;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fecha", type="datetime", nullable=true)
+     */
+    private $fecha;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="total", type="float", precision=10, scale=0, nullable=true)
+     */
+    private $total;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="envio", type="string", length=200, nullable=true)
+     */
+    private $envio;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="estado", type="integer", nullable=true)
+     */
+    private $estado;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="codigopedido", type="string", length=100, nullable=true)
+     */
+    private $codigopedido;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="tipopago", type="integer", nullable=true)
+     */
+    private $tipopago;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="boleta", type="string", length=80, nullable=true)
+     */
+    private $boleta;
+
+    /**
+     * @var \Cliente
+     *
+     * @ORM\ManyToOne(targetEntity="Cliente")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="cliente_idcliente", referencedColumnName="idcliente")
+     * })
+     */
+    private $clientecliente;
+
+    /**
+     * @var \Empresa
+     *
+     * @ORM\ManyToOne(targetEntity="Empresa")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="empresa_idempresa", referencedColumnName="idempresa")
+     * })
+     */
+    private $empresaempresa;
+
+
+}
+

@@ -1,0 +1,68 @@
+	<div class="row">
+
+		<div class="container-fluid">
+			<h1 class="alert alert-info">Inventario</h1>
+			
+			<button class="btn btn-success" onclick="nuevo_prod()">
+				<i class="fa fa-plus-circle"></i> Nuevo producto
+			</button>
+			<br>
+			<br>
+		</div>
+    {# NOTIFICACIONES #}
+    <div class="container-fluid">
+      {#notifiaciones de realizado#}
+      {% for message in app.session.flashbag().get('hecho') %}
+        <div class="alert alert-success">{{message}}</div>
+      {% endfor %}
+    </div>
+      {#notifiaciones de algun error#}
+    <div class="container-fluid">
+      {% for message1 in app.session.flashbag().get('error') %}
+        <div class="alert alert-danger">{{message1}}</div>
+      {% endfor %}
+    </div>
+    {#notifiaciones de informacion#}
+    <div class="container-fluid">
+      {% for message2 in app.session.flashbag().get('info') %}
+        <div class="alert alert-info">{{message2}}</div>
+      {% endfor %}
+    </div>
+    {#FIN NOTIFIACIONES#}
+
+		<div class="container-fluid">
+
+			<table class="table">
+  <thead class="thead-dark">
+    <tr>	
+      <th scope="col">Nombre</th>
+      <th scope="col">Descripcion</th>
+      <th scope="col">Existencia</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+  	{% for producto in productos %}
+  	<tr>
+      <td>{{producto.Nombre}}</td>
+      <td>{{producto.Descripcion}}</td>
+      <td>{{producto.Existencia}}</td>
+      <td>
+      	<button class="btn btn-default">
+      		<i class="fas fa-info-circle"></i> Detalles
+      	</button>
+      </td>
+    </tr>    
+  	{% endfor %}
+  </tbody>
+</table>
+
+		</div>
+
+	</div>
+
+<script type="text/javascript">
+	function nuevo_prod(){
+		$("#page-content-wrapper").load("{{path('seleccioncategoriaEmpresa')}}");
+	}
+</script>

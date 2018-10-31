@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block script_encabezado %}
+<link href="{{asset('public/css/round-about.css')}}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+<!-- Navigation -->
+  <nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-primary">
+  <a class="navbar-brand" href="#" style="padding:5px">
+     Tienda Salcaja
+  </a>
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse justify-content-between" id="navbar">
+    <div class="navbar-nav">
+    </div>
+    {% if app.user != null %}
+    <div class="navbar-nav">
+      <a href="#" class="nav-item nav-link">
+        <i class="fa fa-user"></i> {{app.user.Username}}
+      </a>
+      <a class="nav-item nav-link" href="{{path('logout')}}">
+        <i class="fas fa-sign-out-alt"></i> Cerrar Sesion
+      </a>
+    </div>
+    {% endif %}
+    {% if app.user == null %}
+      <div class="navbar-nav">
+      <a href="{{path('login')}}" class="nav-item nav-link">
+        <i class="fa fa-user"></i> Iniciar Sesion
+      </a>
+      <a class="nav-item nav-link" href="#">
+        <i class="fas fa-sign-out-alt"></i> Registrase
+      </a>
+    </div>
+    {% endif %}
+  </div>
+    
+</nav>
+
+    <!-- Page Content -->
+    <div class="container">
+
+      <!-- Introduction Row -->
+      <h1 class="my-4">Empresa artesanales Salcaja <br>
+        <small>Bienvenido a las tiendas online!</small>
+      </h1>
+      <p>Busca en el catalogo de las empresas el producto que estas buscando podra hacer tus pedidos de manera facil y rapida</p>
+
+      <!-- Team Members Row -->
+      <div class="row">
+        <div class="col-lg-12">
+          <h2 class="my-4">Empresas</h2>
+        </div>
+        {% for empresa in empresas %}
+        <div class="col-lg-4 col-sm-6 text-center mb-4">
+          <img class="rounded-circle img-fluid d-block mx-auto" src="{{asset('public/img/enterprise.png')}}" alt="">
+          <h3>{{empresa.Nombre}}</h3>
+          <p>{{empresa.Descripcion}}</p>
+          <a class="btn btn-info" href="{{path('empresaPage',{id:empresa.Idempresa})}}">
+            <i class="fa fa-arrow-right"></i> Ingresar
+          </a>
+        </div>  
+        {% endfor %}
+        
+      </div>
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2018</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+{% endblock %}

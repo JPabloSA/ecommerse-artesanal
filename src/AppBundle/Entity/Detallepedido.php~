@@ -1,0 +1,60 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Detallepedido
+ *
+ * @ORM\Table(name="detallepedido", indexes={@ORM\Index(name="fk_detallepedido_pedido1_idx", columns={"pedido_idpedido"}), @ORM\Index(name="fk_detallepedido_producto1_idx", columns={"producto_idproducto"})})
+ * @ORM\Entity
+ */
+class Detallepedido
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="iddetallepedido", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $iddetallepedido;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="cantidad", type="string", length=45, nullable=true)
+     */
+    private $cantidad;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="total", type="string", length=45, nullable=true)
+     */
+    private $total;
+
+    /**
+     * @var \Pedido
+     *
+     * @ORM\ManyToOne(targetEntity="Pedido")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="pedido_idpedido", referencedColumnName="idpedido")
+     * })
+     */
+    private $pedidopedido;
+
+    /**
+     * @var \Producto
+     *
+     * @ORM\ManyToOne(targetEntity="Producto")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="producto_idproducto", referencedColumnName="idproducto")
+     * })
+     */
+    private $productoproducto;
+
+
+}
+

@@ -1,0 +1,48 @@
+<div class="row">
+	<div class="container-fluid">
+		<h2 class="alert alert-info">Seleccione la categoria</h2>
+		<br><br>
+	</div>
+
+	<div class="col-md-6">
+		<table class="table table-hover">
+			<thead>
+			<tr>
+				<th>Nombre</th>
+			</tr>
+			</thead>
+			<tbody>
+			{% for categoria in categorias %}
+				<tr>
+				    <td>{{categoria.Nombre}}</td>
+                    <td>
+                        <button class="btn btn-default" onclick="elegir_cat({{categoria.Idcategoria}})">
+                            <i class="fas fa-shield-check"></i> Seleccionar
+                        </button>
+                    </td>
+			    </tr>	
+			{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<script type="text/javascript">
+    function elegir_cat(idcat){
+        $.ajax({
+            type:'POST',
+            url:"{{path("nuevoproductoEmpresa",{id:"0"})}}",
+            data:{id:idcat},
+            success: function (html) {
+              // For redirection
+              $("#page-content-wrapper").html(html);
+              // This is for click the tab after success callback.
+              //setTimeout(function(){$("#form-stufa").click()},500);
+            },
+            error: function(){
+
+              }
+
+        });
+    }
+</script>

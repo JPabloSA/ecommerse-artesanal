@@ -1,0 +1,148 @@
+app:
+  resource: '@AppBundle/Controller/'
+  type: annotation
+
+login_check:
+  path: /login_check
+
+logout:
+  path: /logout
+
+#login function
+
+login:
+  path: /login
+  defaults: {_controller:AppBundle:Usuario:login }
+
+adminPage:
+  path: /adminPage
+  defaults: { _controller: AppBundle:Administrador:index }
+
+gerentePage:
+  path: /gerentePage
+  defaults: { _controller: AppBundle:Gerente:index }
+
+recepcionPage:
+  path: /recepcionPage
+  defaults: { _controller: AppBundle:Recepcion:index }
+
+bodegaPage:
+  path: /bodegaPage
+  defaults: { _controller: AppBundle:Bodega:index }
+
+produccionPage:
+  path: /produccionPage
+  defaults: { _controller: AppBundle:Produccion:index }
+
+#funciones administrador
+
+homeAdministrador:
+  path: /homeAdministrador
+  defaults: { _controller: AppBundle:Administrador:homeAdministrador }
+
+
+#funciones de gerente de la empresa
+homeGerente:
+  path: /homeGerente
+  defaults: { _controller: AppBundle:Gerente:homeGerente }
+
+usuariosEmpresa:
+  path: /usuariosEmpresa
+  defaults: { _controller: AppBundle:Gerente:usuariosEmpresa }
+
+nuevousuarioEmpresa:
+  path: /nuevousuarioEmpresa
+  defaults: { _controller: AppBundle:Gerente:nuevousuarioEmpresa }
+
+guardarusuarioEmpresa:
+  path: /guardarusuarioEmpresa
+  defaults: { _controller: AppBundle:Gerente:guardarusuarioEmpresa }
+
+productosEmpresa:
+  path: /productosEmpresa
+  defaults: { _controller: AppBundle:Gerente:productosEmpresa }
+
+seleccioncategoriaEmpresa:
+  path: /seleccioncategoriaEmpresa
+  defaults: { _controller: AppBundle:Gerente:seleccioncategoriaEmpresa }
+
+nuevoproductoEmpresa:
+  path: /nuevoproductoEmpresa/{id}
+  defaults: { _controller: AppBundle:Gerente:nuevoproductoEmpresa }
+
+categoriasEmpresa:
+  path: /categoriasEmpresa
+  defaults: { _controller: AppBundle:Gerente:categoriasEmpresa }
+
+nuevacategoriaEmpresa:
+  path: /nuevacategoriaEmpresa
+  defaults: { _controller: AppBundle:Gerente:nuevacategoriaEmpresa }
+
+ingresosbodegaEmpresa:
+  path: /ingresosbodegaEmpresa
+  defaults: { _controller: AppBundle:Gerente:ingresosbodegaEmpresa }
+
+#funciones de recepcion de la empresa
+homeRecepcion:
+  path: /homeRecepcion
+  defaults: { _controller: AppBundle:Recepcion:homeRecepcion }
+
+pedidosRecepcion:
+  path: /pedidosRecepcion
+  defaults: { _controller: AppBundle:Recepcion:pedidosRecepcion }
+
+bodegaRecepcion:
+  path: /bodegaRecepcion
+  defaults: { _controller: AppBundle:Recepcion:bodegaRecepcion }
+
+entregasRecepcion:
+  path: /entregasRecepcion
+  defaults: { _controller: AppBundle:Recepcion:entregasRecepcion}
+
+
+#funciones de bodega de la empresas
+homeBodega:
+  path: /homeBodega
+  defaults: { _controller: AppBundle:Bodega:homeBodega }
+
+#funciones de produccion de la empresa
+homeProduccion:
+  path: /homeProduccion
+  defaults: { _controller: AppBundle:Produccion:homeProduccion }
+
+
+#funciones de cliente
+
+loginCliente:
+  path: /loginCliente
+  defaults: { _controller: AppBundle:Usuario:loginCliente }
+
+registroCliente:
+  path: /registroCliente
+  defaults: { _controller: AppBundle:Cliente:registroCliente }
+
+#funciones Generales
+
+principal:
+  path: /principal
+  defaults: { _controller: AppBundle:Default:index }
+
+empresaPage:
+  path: /empresaPage/{id}
+  defaults: { _controller: AppBundle:Default:empresaPage}
+
+catalogoGeneral:
+  path: /catalogoGeneral/{id}
+  defaults: { _controller: AppBundle:Default:catalogoGeneral }
+
+carroVista:
+  path: /carroVista/{id}
+  defaults: { _controller: AppBundle:Default:carroVista }
+
+carro:
+  path: /carro/{id}
+  defaults: {_controller:AppBundle:Default:carro }
+
+quitarProducto:
+  path: /quitarProducto
+  defaults: { _controller: AppBundle:Default:quitarProducto }

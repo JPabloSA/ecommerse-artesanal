@@ -1,0 +1,49 @@
+ <div class="row">
+    <div class="container-fluid">
+      <h2 class="alert alert-info">Crear nuevo producto</h2>
+    </div>
+
+    <div class="col-md-6">
+      {{ form_start(form, { 'attr': {'class': 'form-group','id':'form_producto'} , 'enctype':"multipart/form-data"} ) }}
+      {{form_widget(form)}}
+      <br>
+
+      <button type="submit" class="btn btn-success">
+        <i class="fa fa-floppy-o fa-2x" aria-hidden="true"></i>  Guardar producto
+      </button>
+      {{form_end(form)}}
+      <button class="btn btn-danger" onclick="volver_productos()">Cancelar</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+
+        $('#form_producto').submit(function (e) {
+        e.preventDefault();
+        //var form =$(this);
+        $.ajax({
+            type:"POST",
+            url:"{{path("nuevoproductoEmpresa",{id:categoria.Idcategoria})}}",
+            data:new FormData($(this)[0]),
+            processData: false,
+            contentType: false,
+            cache: false,
+            success: function (data) {
+              // For redirection
+              $("#page-content-wrapper").load("{{path('productosEmpresa')}}");
+              // This is for click the tab after success callback.
+              //setTimeout(function(){$("#form-stufa").click()},500);
+            },
+            error: function(){
+
+              }
+
+        });
+    });
+
+    function volver_productos(){
+      $("#page-content-wrapper").load("{{path('productosEmpresa')}}");
+    }
+</script>

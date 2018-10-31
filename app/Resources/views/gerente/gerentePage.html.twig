@@ -1,0 +1,112 @@
+{% extends 'base.html.twig' %}
+
+{% block script_encabezado %}
+	<link href="{{asset('public/css/scrolling-nav.css')}}" rel="stylesheet">
+  <link href="{{asset('public/css/simple-sidebar.css')}}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+
+<nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-dark">
+  <a class="navbar-brand" href="#" id="menu-toggle" href="#menu-toggle" style="padding:5px">
+    <i class="fa fa-list-ul fa-1x" aria-hidden="true"></i>  Menu
+  </a>
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse justify-content-between" id="navbar">
+    <div class="navbar-nav">
+    </div>
+    <div class="navbar-nav">
+      <a href="#" class="nav-item nav-link">
+        <i class="fa fa-user"></i> {{colaborador.Nombre}} ({{colaborador.Puesto}})
+      </a>
+      <a class="nav-item nav-link" href="{{path('logout')}}">
+        <i class="fas fa-sign-out-alt"></i> Cerrar Sesion
+      </a>
+    </div>
+  </div>
+    
+</nav>
+	<div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+              {# home page #}
+              <li>
+                  <a href="#" id="home_page">
+                    <i><img class="img-rounded" src="{{asset('public/img/icons/homepage.png')}}"></i> {{empresa.Nombre}}</a>
+              </li>
+              {# habitaciones page #}
+              <li>
+                  <a href="#" id="usuarios_page">
+                    <i><img class="img-rounded" src="{{asset('public/img/icons/user.png')}}"></i> Usuario</a>
+              </li>
+
+              {# reservacion opciones #}
+              <li data-toggle="collapse" data-target="#bodega" class="collapsed">
+                <a href="#"><i><img class="img-rounded" src="{{asset('public/img/icons/warehouse.png')}}"></i> Bodega &emsp;
+                  <i class="fa fa-caret-right fa-1x" aria-hidden="true"></i></a>
+              </li>
+              <ul class="sub-menu collapse" id="bodega">
+                <li><a href="#" id="productos_page"><i><img class="img-rounded" src="{{asset('public/img/icons/product.png')}}"></i> Productos</a></li>
+                <li><a href="#" id="categorias_page"><i><img class="img-rounded" src="{{asset('public/img/icons/category.png')}}"></i> Categorias</a></li>
+                <li><a href="#" id="ingresos_page"><i><img class="img-rounded" src="{{asset('public/img/icons/import.png')}}"></i> Ingresos</a></li>
+              </ul>
+
+              
+              <li>
+                  <a href="#" id="pedidos_page">
+                    <i><img class="img-rounded" src="{{asset('public/img/icons/report.png')}}"></i> Ventas</a>
+              </li>
+              
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+
+
+        <div id="page-content-wrapper" style="background-color:#FFFFFF; width:100%; height: 100%;">
+
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+
+{% endblock %}
+
+{% block script_extra %}
+<script type="text/javascript">
+
+      $(document).ready(function() {
+        $("#page-content-wrapper").load('{{path('homeGerente')}}');
+        $('#home_page').click(function(){
+            $("#page-content-wrapper").load('{{path('homeGerente')}}');
+        });
+        $('#usuarios_page').click(function(){
+            $("#page-content-wrapper").load('{{path('usuariosEmpresa')}}');
+        });
+        $('#productos_page').click(function(){
+            $("#page-content-wrapper").load('{{path('productosEmpresa')}}');
+        });
+        $('#categorias_page').click(function(){
+            $("#page-content-wrapper").load('{{path('categoriasEmpresa')}}');
+        });
+        $('#ingresos_page').click(function(){
+            $("#page-content-wrapper").load('{{path('ingresosbodegaEmpresa')}}');
+        });
+      });
+
+</script>
+
+<script>
+$("#menu-toggle").click(function(e) {
+    e.preventDefault();
+    $("#wrapper").toggleClass("toggled");
+});
+</script>
+
+
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block nav_menu %}
+ <nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-primary">
+      <a class="navbar-brand" href="{{path('principal')}}" style="padding:5px">
+        <i class="fa fa-arrow-left fa-1x" aria-hidden="true"></i>  {{empresa.Nombre}}
+      </a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-between" id="navbar">
+        <div class="navbar-nav">
+
+        </div>
+
+        {% if app.user == null %}
+          <div class="navbar-nav">
+          <a class="nav-item nav-link" href="{{path('login')}}">
+            <i class="fas fa-user"></i> Iniciar Sesion
+          </a>
+          <a href="#" class="nav-item nav-link">
+             <i class="fas fa-sign-out-alt"></i> Registrarse
+          </a>
+        </div>
+        {% endif %}
+        {% if app.user != null %}
+          <div class="navbar-nav">
+          <a href="#" class="nav-item nav-link">
+            <i class="fa fa-user"></i> {{app.user.Username}}
+          </a>
+          <a class="nav-item nav-link" href="{{path('logout')}}">
+            <i class="fas fa-sign-out-alt"></i> Cerrar Sesion
+          </a>
+        </div>
+        {% endif %}
+        
+
+      </div>
+
+    </nav>   
+{% endblock %}
+
+{% block body %}
+
+	<div class="container-fluid nav-padding" id="content-page">
+		<!--contenido de la pagina -->
+
+	</div>
+    
+{% endblock %}
+
+{% block script_extra %}
+	<script type="text/javascript">
+		$( document ).ready(function() {
+    		$("#content-page").load("{{path('catalogoGeneral',{id:empresa.Idempresa})}}");
+		});
+	</script>
+    
+{% endblock %}
