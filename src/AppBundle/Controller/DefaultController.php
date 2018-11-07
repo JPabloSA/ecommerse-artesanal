@@ -20,6 +20,7 @@ class DefaultController extends Controller
     {
         $empresas = $this->getDoctrine()->getRepository(Empresa::class)->findAll();
 
+
         return $this->render('default/index.html.twig',array('empresas'=>$empresas ));
     }
 
@@ -34,12 +35,23 @@ class DefaultController extends Controller
 
     public function catalogoGeneralAction($id){
         $empresa = $this->getDoctrine()->getRepository(Empresa::class)->findOneByIdempresa($id);
-        $categoria = $this->getDoctrine()->getRepository(Categoria::class)->findOneByEmpresaempresa($empresa);
-        $productos = $this->getDoctrine()->getRepository(Producto::class)->findByCategoriacategoria($categoria);
+        $categorias = $this->getDoctrine()->getRepository(Categoria::class)->findByEmpresaempresa($empresa);
+        $productos = array();
+
+
+        foreach ($categorias as $categoria) {
+          $prods = $this->getDoctrine()->getRepository(Producto::class)->findByCategoriacategoria($categoria);
+          foreach ($prods as $prod) {
+            array_push($productos,$prod);
+          }
+          
+        }
 
         return $this->render('default/catalogoGeneral.html.twig',array(
-          'empresa'=>$empresa,
-          'productos'=>$productos));
+          'empresa' => $empresa,
+          'productos' => $productos,
+          'categorias' => $categorias
+        ));
     }
 
 //vista del detalle de compras
