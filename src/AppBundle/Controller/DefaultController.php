@@ -18,13 +18,19 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $empresas = $this->getDoctrine()->getRepository(Empresa::class)->findAll();
 
-
-        return $this->render('default/index.html.twig',array('empresas'=>$empresas ));
+        return $this->render('default/index.html.twig');
     }
 
-    public function empresaPageAction($id){
+    public function listaEmpresasAction(){
+      
+      $empresas = $this->getDoctrine()->getRepository(Empresa::class)->findAll();
+
+      return $this->render('default/listaEmpresas.html.twig',array('empresas'=>$empresas )); 
+    }
+
+    public function empresaPageAction(Request $request){
+      $id=$request->request->get("id");
       $empresa = $this->getDoctrine()->getRepository(Empresa::class)->findOneByIdempresa($id);
 
       return $this->render('default/empresaPage.html.twig',array(
@@ -33,7 +39,8 @@ class DefaultController extends Controller
 
     }
 
-    public function catalogoGeneralAction($id){
+    public function catalogoGeneralAction(Request $request){
+        $id=$request->request->get("id");
         $empresa = $this->getDoctrine()->getRepository(Empresa::class)->findOneByIdempresa($id);
         $categorias = $this->getDoctrine()->getRepository(Categoria::class)->findByEmpresaempresa($empresa);
         $productos = array();
@@ -55,8 +62,8 @@ class DefaultController extends Controller
     }
 
 //vista del detalle de compras
-    public function carroVistaAction(Request $request,$id){
-      //$idempresa=$request->request->get("id");
+    public function carroVistaAction(Request $request){
+      $id=$request->request->get("id");
       $empresa = $this->getDoctrine()->getRepository(Empresa::class)->findOneByIdempresa($id);
       $user = $this->get('security.token_storage')->getToken()->getUser();
       $cliente = $this->getDoctrine()->getRepository(Cliente::class)->findOneByUsuariousuario($user);
@@ -93,8 +100,9 @@ class DefaultController extends Controller
         'cliente'=>$cliente));
     }
 
-    public function carroAction($id,Request $request)
+    public function carroAction(Request $request)
     {
+      $id=$request->request->get("id");
       $cantidad=$request->request->get("cantidad");
       $id2=$request->request->get("id2");
       $user = $this->get('security.token_storage')->getToken()->getUser();

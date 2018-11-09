@@ -1,0 +1,37 @@
+<!-- Page Content -->
+    <div class="container">
+
+      <!-- Introduction Row -->
+      <h1 class="my-4">Empresa artesanales Salcaja <br>
+        <small>Bienvenido a las tiendas online!</small>
+      </h1>
+      <p>Busca en el catalogo de las empresas el producto que estas buscando podra hacer tus pedidos de manera facil y rapida</p>
+
+      <!-- Team Members Row -->
+      <div class="row">
+        <div class="col-lg-12">
+          <h2 class="my-4">Empresas</h2>
+        </div>
+        {% for empresa in empresas %}
+        <div class="col-lg-4 col-sm-6 text-center mb-4">
+          <img class="rounded-circle img-fluid d-block mx-auto" src="{{asset('public/img/enterprise.png')}}" alt="">
+          <h3>{{empresa.Nombre}}</h3>
+          <p>{{empresa.Descripcion}}</p>
+          <button class="btn btn-info" onclick="elegirEmpresa({{empresa.Idempresa}})">
+            <i class="fa fa-arrow-right"></i> Ingresar
+          </button>
+        </div>  
+        {% endfor %}
+        
+      </div>
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <footer class="py-3 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2018</p>
+      </div>
+      <!-- /.container -->
+    </footer>

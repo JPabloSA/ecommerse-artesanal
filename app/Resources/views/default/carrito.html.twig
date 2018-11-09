@@ -68,7 +68,16 @@
   }
 
   function catalogo_ir(){
-    $("#content-page").load("{{path('catalogoGeneral',{id:empresa.Idempresa})}}");
+    $.ajax({
+      type: "POST",
+      url: "{{path('catalogoGeneral')}}",
+      data:{
+        id:"{{empresa.Idempresa}}"
+      },
+      success: function (html) {
+        $("#content-page").html(html); 
+      }
+    });
   }
 
 </script>

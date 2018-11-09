@@ -113,6 +113,10 @@ homeProduccion:
 
 #funciones de cliente
 
+listaEmpresas:
+  path: /listaEmpresas
+  defaults: { _controller: AppBundle:Default:listaEmpresas }
+
 loginCliente:
   path: /loginCliente
   defaults: { _controller: AppBundle:Usuario:loginCliente }
@@ -128,19 +132,19 @@ principal:
   defaults: { _controller: AppBundle:Default:index }
 
 empresaPage:
-  path: /empresaPage/{id}
+  path: /empresaPage
   defaults: { _controller: AppBundle:Default:empresaPage}
 
 catalogoGeneral:
-  path: /catalogoGeneral/{id}
+  path: /catalogoGeneral
   defaults: { _controller: AppBundle:Default:catalogoGeneral }
 
 carroVista:
-  path: /carroVista/{id}
+  path: /carroVista
   defaults: { _controller: AppBundle:Default:carroVista }
 
 carro:
-  path: /carro/{id}
+  path: /carro
   defaults: {_controller:AppBundle:Default:carro }
 
 quitarProducto:
