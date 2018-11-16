@@ -1,12 +1,14 @@
 <div class="container-fluid">
   <div class="row">
+    
+
     <div class="col-md-6">
-      <h2><span class="badge badge-warning btn-lg btn-block">Artículos en el Carro de Compras</span></h2>
-    <span class="badge badge-secondary btn-lg ">Nombre de cliente: {{cliente.nombre}} {{cliente.apellido}}</span>
+      <h2><span class="badge badge-warning btn-lg">Artículos en el Carro de Compras</span></h2>
+      <span class="badge badge-secondary btn-lg ">Nombre de cliente: {{cliente.nombre}} {{cliente.apellido}}</span>
+      <div class="table-responsive">
       <table class="table table-striped">
         <thead class="thead-dark">
         <tr>
-          <th scope="col">ID Detalle</th>
           <th scope="col">Producto</th>
           <th scope="col">Unidades</th>
           <th scope="col">Precio Unidad</th>
@@ -20,9 +22,10 @@
           <tr>
             <td>{{detalle.Productoproducto.Nombre}}</td>
             <td>{{detalle.cantidad}}</td>
-            <td>{{detalle.total}}</td>
+            <td>{{detalle.Productoproducto.Precio}}
+            <td>{{detalle.Total}}</td>
             <td>
-              <button class="btn btn-danger" onclick="quitar_prod({{detalle.Iddetallepedido}})">
+              <button class="btn btn-raised btn-danger" onclick="quitar_prod({{detalle.Iddetallepedido}})">
                 <i class="fa fa-trash"></i> Quitar
               </button>
 
@@ -31,20 +34,47 @@
         </tbody>
       {% endfor %}
     </table>
+    </div>
     </div>  
 
     <div class="col-md-6">
-      <button class="btn btn-success">
+      <div class="container-fluid">
+      <h2><span class="badge badge-warning btn-lg">Datos para envio {{empresa.Nombre}}</span></h2>
+     <form>
+      <fieldset class="form-group">
+        <label for="envio">Direccion</label>
+        <input type="text" class="form-control" id="envio" placeholder="Ingrese la direccion de envio">
+      </fieldset>
+      <div class="btn-group btn-group-toggle" data-toggle="buttons">
+  
+  <label class="btn btn-secondary active">
+    <input type="radio" name="options" id="option2" autocomplete="off"> Efectivo
+  </label>
+  <label class="btn btn-secondary">
+    <input type="radio" name="options" id="option3" autocomplete="off"> Deposito
+  </label>
+</div>
+  
+    </form>
+
+    <h3>Total <span class="badge badge-secondary">Q. 5000</span></h3><br>
+        <button class="btn btn-raised btn-success">
       <i class="fa fa-arrow-right"></i> Pedir
     </button>
-    <button class="btn btn-danger">
+    <button class="btn btn-raised btn-danger">
       <i class="fa fa-ban"></i> Cancelar
     </button>
     <br><br>
 
-    <button class="btn btn-warning btn-lg" onclick="catalogo_ir()">
-      Catalogo
-    </button>
+    
+      </div>
+      
+    </div>
+
+    <div class="container-fluid">
+      <button class="btn btn-raised btn-primary btn-lg" onclick="catalogo_ir()">
+        Catalogo
+      </button>  
     </div>
 
   </div>
@@ -58,10 +88,11 @@
       type: "POST",
       url: "{{path('quitarProducto')}}",
       data:{
-        id:iddetalle
+        id:iddetalle,
+        idemp:"{{empresa.Idempresa}}"
       },
       success: function () {
-        $("#content-page").load("{{path('carroVista',{id:empresa.Idempresa})}}"); 
+        carritoverborrar("{{empresa.Idempresa}}");
       }
     });
 
@@ -79,5 +110,19 @@
       }
     });
   }
+
+  function carritoverborrar(idemp){
+      $.ajax({
+                type: "POST",
+                url: "{{path('carroVista')}}",
+                data:{ 
+                  id:idemp
+                },
+                success: function (html) {
+                  $("#content-page").html(html); 
+                }
+            });
+
+    }
 
 </script>

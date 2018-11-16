@@ -105,7 +105,7 @@ class GerenteController extends Controller
           $em->persist($usuario);
           $em->flush();
 
-          $colaborador->setNombre($nombre);
+          $colaborador->setNombre($nombre  );
           $colaborador->setPuesto($puesto);
           $colaborador->setUsuariousuario($usuario);
           $colaborador->setEmpresaempresa($empresa);
@@ -229,6 +229,10 @@ class GerenteController extends Controller
         return $this->render('gerente/ingresosbodegaEmpresa.html.twig');
     }
     
+
+    public function ventasEmpresaAction(){
+        return $this->render('gerente/ventasEmpresa.html.twig');
+    }
 
     
 }

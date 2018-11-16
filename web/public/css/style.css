@@ -1,16 +1,19 @@
-.thumbnail img{
+.thumbnail img {
     max-height: 240px;
 }
 
-.thumbnail .description{
-color: cornflowerblue;
+.thumbnail .description {
+    color: cornflowerblue;
 }
 
-.price{
+.price {
     font-weight: bold;
     font-size: 22px;
 }
+
+
 /*borde de las imagenes*/
+
 .thumbnail {
     border-radius: 15px;
     box-shadow: 0 3px 35px rgba(0, 0, 0, 0.3);
@@ -22,11 +25,15 @@ h2 {
     margin-right: 5px;
     margin-left: 5px;
 }
+
 h5 {
     text-align: center;
- }
-body, html, head {
-    width:100%;
+}
+
+body,
+html,
+head {
+    width: 100%;
     height: 100%;
 }
 
@@ -42,24 +49,39 @@ body, html, head {
     transition: 0.3s;
 }
 
-#myImg:hover {opacity: 0.7;}
-
-/* The Modal (background) */
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    padding-top: 100px; /* Location of the box */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+#myImg:hover {
+    opacity: 0.7;
 }
 
+
+/* The Modal (background) */
+
+.modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
+    padding-top: 100px;
+    /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.9);
+    /* Black w/ opacity */
+}
+
+
 /* Modal Content (image) */
+
 .modal-content {
     margin: auto;
     display: block;
@@ -67,7 +89,9 @@ body, html, head {
     max-width: 380px;
 }
 
+
 /* Caption of Modal Image */
+
 #caption {
     margin: auto;
     display: block;
@@ -79,8 +103,11 @@ body, html, head {
     height: 150px;
 }
 
+
 /* Add Animation */
-.modal-content, #caption {
+
+.modal-content,
+#caption {
     -webkit-animation-name: zoom;
     -webkit-animation-duration: 0.6s;
     animation-name: zoom;
@@ -88,16 +115,26 @@ body, html, head {
 }
 
 @-webkit-keyframes zoom {
-    from {-webkit-transform:scale(0)}
-    to {-webkit-transform:scale(1)}
+    from {
+        -webkit-transform: scale(0)
+    }
+    to {
+        -webkit-transform: scale(1)
+    }
 }
 
 @keyframes zoom {
-    from {transform:scale(0)}
-    to {transform:scale(1)}
+    from {
+        transform: scale(0)
+    }
+    to {
+        transform: scale(1)
+    }
 }
 
+
 /* The Close Button */
+
 .close {
     position: absolute;
     top: 15px;
@@ -115,8 +152,10 @@ body, html, head {
     cursor: pointer;
 }
 
+
 /* 100% Image Width on Smaller Screens */
-@media only screen and (max-width: 700px){
+
+@media only screen and (max-width: 700px) {
     .modal-content {
         width: 100%;
     }
@@ -126,7 +165,6 @@ body, html, head {
     height: auto;
     max-width: 30%;
     width: 50%;
-
 }
 
 .cell {
@@ -137,13 +175,14 @@ body, html, head {
     width: 50%;
 }
 
-.btn-primary-spacing
-{
+.btn-primary-spacing {
     margin-right: 5px;
     margin-left: 5px;
 }
 
+
 /*color venta hecha*/
+
 .alert {
     padding: 20px;
     background-color: #3675F4;
@@ -165,6 +204,23 @@ body, html, head {
     color: black;
 }
 
-.nav-padding{
+.nav-padding {
     padding-top: 60px;
+}
+
+.form_bg {
+    padding: 20px;
+    border-radius: 10px;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 400px;
+    height: 350px;
+}
+
+.align-center {
+    text-align: center;
 }

@@ -1,78 +1,95 @@
-{% extends 'base.html.twig' %}
+{% extends 'basecliente.html.twig' %}
 
-{% block nav_menu %}
-	<nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-primary">
-  <a class="navbar-brand" href="#" style="padding:5px">
-     Tienda Salcaja
-  </a>
-  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse justify-content-between" id="navbar">
-    <div class="navbar-nav">
-    </div>
-    <div class="navbar-nav">
-      <a href="{{path('principal')}}" class="nav-item nav-link">
-        Empresas
-      </a>
-      
-    </div>
-    
-    
-</nav>    
-{% endblock %}
+{% block title %}Registro{% endblock %}
 
 {% block body %}
-	<div class="container-fluid">
-		<br><br><br>
-		<div class="row">
 
-			<div class="container-fluid">
-				<h2 class="alert alert-info">Registrar usuario</h2>
+<div class="container" style="margin-top: 80px; margin-bottom: 30px;">
+
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Registro Cliente</h5>
+    <form class="form-control" id="form_registro">
+			<div class="form-group">
+				<label for="email" class="bmd-label-floating">Email</label>
+				<input type="email" class="form-control" id="email">
+			</div>
+			<div class="form-group">
+				<label for="exampleInputPassword1" class="bmd-label-floating">Contraseña</label>
+				<input type="password" class="form-control" id="exampleInputPassword1">
+			</div>
+			<div class="form-group">
+				<label for="nombres" class="bmd-label-floating">Nombres</label>
+				<input type="text" class="form-control" id="nombres">
+			</div>
+			<div class="form-group">
+				<label for="apellidos" class="bmd-label-floating">Apellidos</label>
+				<input type="text" class="form-control" id="apellidos">
+			</div>
+			<div class="form-group">
+				<label for="direccion" class="bmd-label-floating">Direccion</label>
+				<input type="text" class="form-control" id="direccion">
+			</div>
+			<div class="form-group">
+				<label for="nit" class="bmd-label-floating">Nit (Opcional)</label>
+				<input type="text" class="form-control" id="nit">
+			</div>
+			<div class="form-group">
+				<label for="telefono" class="bmd-label-floating">Telefono</label>
+				<input type="text" class="form-control" id="telefono">
 			</div>
 
-			<div class="col-md-6">
-				<form>
-					<label for="usuario">Usuario</label>
-				      <input type="email" id="usuario" class="form-control" required="true">
+		</form>
+		<a class="btn btn-raised btn-secondary" href="{{path('principal')}}">Cancel</a>
+		<button type="button" class="btn btn-success btn-raised" onclick="enviar_datos()">Completar Registro</button>
+  </div>
+</div>
 
-				      <label for="password">Contrasena</label>
-				      <input type="password" id="password" class="form-control">
 
-				      <label for="confirmar_pass">Confirmar Contraseña</label>
-				      <input type="password" id="confirmar_pass" class="form-control">
 
-				      <label for="nombre">Nombres</label>
-				      <input type="text" id="nombre" class="form-control">
+</div>
 
-				      <label for="apellido">Apellido</label>
-				      <input type="text" id="apellido" class="form-control">
-
-				      <label for="direccion">Direccion</label>
-				      <input type="text" id="direccion" class="form-control">
-
-				      <label for="nit">Nit</label>
-				      <input type="text" id="nit" class="form-control">
-
-				      <label for="telefono">Telefono</label>
-				      <input type="text" id="telefono" class="form-control">
-
-				      <button class="btn btn-success btn-lg" type="submit">
-				        <i class="fa fa-save fa-1x"></i> Guardar Usuario
-				      </button>
-				</form>
-		      
-			</div>
-		</div>
-	</div>    
 {% endblock %}
 
 {% block script_extra %}
 
-	<script type="text/javascript">
-		function enviar_cliente(){
+<script type="text/javascript">
 
-		}
-	</script>
+function enviar_datos(){
+	var txt_email=$("#email").val();
+	var txt_pass=$("#password").val();
+	var txt_nombres=$("#nombres").val();
+	var txt_apellidos=$("#apellidos").val();
+	var txt_direccion=$("#direccion").val();
+	var txt_nit=$("#nit").val();
+	var txt_telefono=$("#telefono").val();
+
+	if((txt_email=="") || (txt_pass=="") || (txt_nombres=="") || (txt_apellidos=="") || (txt_nit=="") || (txt_telefono=="") || (txt_direccion=="") ){
+		alert("Complete los datos");
+	}else{
+		$.ajax({
+            type:"POST",
+            url:"{{path("guardarCliente")}}",
+            data:{
+							email:$("#email").val(),
+							pass:$("#password").val(),
+							nombres:$("#nombres").val(),
+							apellidos:$("#apellidos").val(),
+							direccion:$("#apellidos").val(),
+							nit:$("#nit").val(),
+							telefono:$("#telefono").val()
+						},
+            success: function () {
+              
+            },
+            error: function(){
+
+            }
+
+        });
+	}
+	
+}		
+</script>
     
 {% endblock %}

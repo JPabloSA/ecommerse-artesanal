@@ -82,6 +82,10 @@ ingresosbodegaEmpresa:
   path: /ingresosbodegaEmpresa
   defaults: { _controller: AppBundle:Gerente:ingresosbodegaEmpresa }
 
+ventasEmpresa:
+  path: /ventasEmpresa
+  defaults: { _controller: AppBundle:Gerente:ventasEmpresa }
+
 #funciones de recepcion de la empresa
 homeRecepcion:
   path: /homeRecepcion
@@ -124,6 +128,10 @@ loginCliente:
 registroCliente:
   path: /registroCliente
   defaults: { _controller: AppBundle:Cliente:registroCliente }
+
+guardarCliente:
+  path: /guardarCliente
+  defaults: { _controller: AppBundle:Cliente:guardarCliente }
 
 #funciones Generales
 
