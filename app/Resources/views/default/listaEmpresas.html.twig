@@ -1,12 +1,10 @@
 <!-- Page Content -->
     <div class="container-fluid">
-
       <!-- Introduction Row -->
-      <h1 class="my-4">Empresa artesanales Salcaja <br>
+      <h2 class="my-4 alert alert-info">Empresa artesanales Salcaja <br>
         <small>Bienvenido a las tiendas online!</small>
-      </h1>
-      <p>Busca en el catalogo de las empresas el producto que estas buscando podra hacer tus pedidos de manera facil y rapida</p>
-
+      </h2>
+      
       <!-- Team Members Row -->
       <div class="row">
         <div class="col-lg-12">
@@ -17,7 +15,7 @@
           <img class="rounded-circle img-fluid d-block mx-auto" src="{{asset('public/img/enterprise.png')}}" alt="">
           <h3>{{empresa.Nombre}}</h3>
           <p>{{empresa.Descripcion}}</p>
-          <button class="btn btn-info" onclick="elegirEmpresa({{empresa.Idempresa}})">
+          <button class="btn btn-raised btn-info" onclick="elegirEmpresa({{empresa.Idempresa}})">
             <i class="fa fa-arrow-right"></i> Ingresar
           </button>
         </div>  

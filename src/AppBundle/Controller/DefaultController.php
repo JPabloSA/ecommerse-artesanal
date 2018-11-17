@@ -75,18 +75,21 @@ class DefaultController extends Controller
       $query = $repository->createQueryBuilder('p')
           ->where('p.clientecliente = :cliente')
           ->andWhere('p.empresaempresa = :empresa')
+          ->andWhere('p.estado = 0')
           ->setParameter('cliente',$cliente)
           ->setParameter('empresa', $empresa)
           ->setMaxResults(1)
           ->getQuery();
 
-      $pedido = $query->getResult();
-      $cantpedido=count($pedido);
+      $pedidos = $query->getResult();
+      $cantpedido=count($pedidos);
       
-      /*$pedido=new Pedido();
-      foreach ($pedidos as $ped) {
-        $pedido=$ped;
-      }*/
+      $pedido=new Pedido();
+      if ($cantpedido!=0) {
+        $pedido=$pedidos[0];
+      }
+      
+      
       
       $detalle = $this->getDoctrine()->getRepository(Detallepedido::class)->findByPedidopedido($pedido);  
       
@@ -113,7 +116,7 @@ class DefaultController extends Controller
 //chequea si existe un pedido hecho por el cliente logueado
 //si ni existe lo crea y crea tambien el primer detalle
       if (!$pedidos) {
-        $entityManager = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
               $pedido = new Pedido();
               $pedido->setFecha($this->updated = new \DateTime("now"));
               $pedido->setTotal(0);
@@ -123,36 +126,40 @@ class DefaultController extends Controller
               $pedido->setClientecliente($cliente);
               $pedido->setCodigopedido(1);
                 // tell Doctrine you want to (eventually) save the Product (no queries yet)
-              $entityManager->persist($pedido);
-              $entityManager->flush();
+              $em->persist($pedido);
+              $em->flush();
 //vuelve a buscar los datos del pedido que se agrego a la BD para mandarselo a detalle
               $productoD = $this->getDoctrine()->getRepository(Producto::class)->findOneByIdproducto($id2);
               $pedidoRefresh = $this->getDoctrine()->getRepository(Pedido::class)->findOneByclientecliente($cliente);
 
-                    $detallepedido = new Detallepedido();
-                    $detallepedido->setPedidopedido($pedidoRefresh);
-                    $detallepedido->setProductoproducto($productoD);
-                    $detallepedido->setCantidad($cantidad);
-                    $detallepedido->setTotal($productoD->getPrecio()*$cantidad);
-                      // tell Doctrine you want to (eventually) save the Product (no queries yet)
-                    $entityManager->persist($detallepedido);
-                    $entityManager->flush();
+              $detallepedido = new Detallepedido();
+              $detallepedido->setPedidopedido($pedidoRefresh);
+              $detallepedido->setProductoproducto($productoD);
+              $detallepedido->setCantidad($cantidad);
+              $detallepedido->setTotal($productoD->getPrecio()*$cantidad);
+              // tell Doctrine you want to (eventually) save the Product (no queries yet)
+              $em->persist($detallepedido);
+              $em->flush();
+              $pedido->setTotal($pedido->getTotal()+$detallepedido->getTotal());
+              $em->flush();
       }
       //si esta creadao y estado es 0 entonces ya solo envia datos a detalles
       //se va con un solo if
       if ($pedidos) {
       if ($pedidos->getEstado() === 0) {
-        $entityManager = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
         $productoD = $this->getDoctrine()->getRepository(Producto::class)->find($id2);
 
-              $detallepedido = new Detallepedido();
-              $detallepedido->setPedidopedido($pedidos);
-              $detallepedido->setProductoproducto($productoD);
-              $detallepedido->setCantidad($cantidad);
-              $detallepedido->setTotal($productoD->getPrecio()*$cantidad);
-                // tell Doctrine you want to (eventually) save the Product (no queries yet)
-              $entityManager->persist($detallepedido);
-              $entityManager->flush();
+        $detallepedido = new Detallepedido();
+        $detallepedido->setPedidopedido($pedidos);
+        $detallepedido->setProductoproducto($productoD);
+        $detallepedido->setCantidad($cantidad);
+        $detallepedido->setTotal($productoD->getPrecio()*$cantidad);
+        // tell Doctrine you want to (eventually) save the Product (no queries yet)
+        $em->persist($detallepedido);
+        $em->flush();
+        $pedidos->setTotal($pedidos->getTotal()+$detallepedido->getTotal());
+        $em->flush();
       }
     }
     $categoria = $this->getDoctrine()->getRepository(Categoria::class)->findOneByEmpresaempresa($empresa);
@@ -166,6 +173,9 @@ class DefaultController extends Controller
     
     $em = $this->getDoctrine()->getManager();
     $detalle = $this->getDoctrine()->getRepository(Detallepedido::class)->findOneByIddetallepedido($id);
+    $pedido=$detalle->getPedidopedido();
+    $pedido->setTotal($pedido->getTotal()-$detalle->getTotal());
+    $em->flush();
     $em->remove($detalle);
     $em->flush();  
 

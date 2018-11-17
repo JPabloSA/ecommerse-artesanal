@@ -42,7 +42,7 @@
                     <a href="#">{{producto.Nombre}}</a>
                   </h4>
                   <h5>{{producto.Precio}}</h5>
-                  <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+                  <p class="card-text">{{producto.Descripcion}}</p>
                 </div>
                 <div class="card-footer">
                   {% if app.user != null %}
@@ -138,7 +138,9 @@
     
 
     function agregar_carrito(){
-      $.ajax({
+      var cant=$("#cantidad_producto").val();
+      if(cant!=0){
+        $.ajax({
                 type: "POST",
                 url: "{{path('carro')}}",
                 data:{
@@ -150,6 +152,10 @@
                   catalogo_ir();
                 }
             });
+      }else{
+        alert("Debe ingresar una cantidad");
+      }
+      
 
     }
 

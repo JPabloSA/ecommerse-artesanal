@@ -125,6 +125,10 @@ loginCliente:
   path: /loginCliente
   defaults: { _controller: AppBundle:Usuario:loginCliente }
 
+misPedidos:
+  path: /misPedidos
+  defaults: { _controller: AppBundle:Cliente:misPedidos }
+
 registroCliente:
   path: /registroCliente
   defaults: { _controller: AppBundle:Cliente:registroCliente }

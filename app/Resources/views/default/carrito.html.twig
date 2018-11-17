@@ -1,8 +1,8 @@
-<div class="container-fluid">
+<div class="container-fluid" style="margin-bottom: 30px;">
   <div class="row">
-    
 
-    <div class="col-md-6">
+  {% if cantpedido != 0 %}
+      <div class="col-md-6">
       <h2><span class="badge badge-warning btn-lg">Artículos en el Carro de Compras</span></h2>
       <span class="badge badge-secondary btn-lg ">Nombre de cliente: {{cliente.nombre}} {{cliente.apellido}}</span>
       <div class="table-responsive">
@@ -45,19 +45,19 @@
         <label for="envio">Direccion</label>
         <input type="text" class="form-control" id="envio" placeholder="Ingrese la direccion de envio">
       </fieldset>
-      <div class="btn-group btn-group-toggle" data-toggle="buttons">
-  
-  <label class="btn btn-secondary active">
-    <input type="radio" name="options" id="option2" autocomplete="off"> Efectivo
-  </label>
-  <label class="btn btn-secondary">
-    <input type="radio" name="options" id="option3" autocomplete="off"> Deposito
-  </label>
-</div>
+
+      <div class="form-group">
+        <label for="tipopago">Tipo de pago</label>
+        <select  class="form-control" id="tipopago" name="tipopago">
+          <option value="1">Efectivo</option>
+          <option value="2">Depostio</option>
+        </select>
+      </div>
+      
   
     </form>
 
-    <h3>Total <span class="badge badge-secondary">Q. 5000</span></h3><br>
+    <h3>Total <span class="badge badge-secondary">Q. {{pedido.Total}}</span></h3><br>
         <button class="btn btn-raised btn-success">
       <i class="fa fa-arrow-right"></i> Pedir
     </button>
@@ -77,6 +77,22 @@
       </button>  
     </div>
 
+  {% endif %}
+
+  {% if cantpedido == 0 %}
+    <div class="container-fluid">
+    <h1 class="alert alert-info">No hay productos en el carrito</h1>
+    <button class="btn btn-raised btn-primary btn-lg" onclick="catalogo_ir()">
+        Catalogo
+      </button>  
+    </div>
+      
+  {% endif %}
+  
+  
+    
+
+  
   </div>
 </div>
 

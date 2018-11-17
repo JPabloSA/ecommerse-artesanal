@@ -59,7 +59,11 @@
         {% endif %}
         {% if app.user != null %}
           <div class="navbar-nav">
-            <a href="#" class="nav-item nav-link">
+            <a href="{{path('principal')}}" class="nav-item nav-link">
+            <i class="fas fa-clipboard-list"></i> Empresas
+          </a>
+          <div class="navbar-nav">
+            <a href="{{path('misPedidos')}}" class="nav-item nav-link">
             <i class="fa fa-user"></i> Mis pedidos
           </a>
           <a href="#" class="nav-item nav-link">
@@ -110,6 +114,7 @@
     {% block script_extra %}
 
     {% endblock %}
+
   </body>
 
 </html>

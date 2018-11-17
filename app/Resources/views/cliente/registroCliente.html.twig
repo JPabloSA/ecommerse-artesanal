@@ -80,6 +80,8 @@ function enviar_datos(){
 							telefono:$("#telefono").val()
 						},
             success: function () {
+				var url = "{{path('login')}}"; 
+				$(location).attr('href',url);
               
             },
             error: function(){

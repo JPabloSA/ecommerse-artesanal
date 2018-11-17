@@ -9,6 +9,9 @@ use AppBundle\Entity\Usuario;
 use AppBundle\Entity\Colaborador;
 use AppBundle\Entity\Empresa;
 use AppBundle\Entity\Cliente;
+use Symfony\Component\HttpFoundation\Response;
+use Proxies\__CG__\AppBundle\Entity\Pedido;
+use AppBundle\Entity\Detallepedido;
 
 class ClienteController extends Controller
 {
@@ -63,9 +66,54 @@ class ClienteController extends Controller
     $em->persist($cliente);
     $em->flush();
 
-    
-    return $this->redirectToRoute('login');
+    return new Response("hecho");
+    //return $this->redirectToRoute('login');
   }
+
+  public function solicitarPedidoAction(Request $request){
+    $id=$request->request->get("id");
+    $em = $this->getDoctrine()->getManager();
+
+    $pedido=$this->getDoctrine()->getRepository(Pedido::class)->findOneByIdpedido($id);
+
+    $pedido->setEstado(1);
+    $em->flush();
+
+    return new Response("pedido solicitado");
+    
+  }
+
+  public function cancelarPedidoAction(Request $request){
+    $id=$request->request->get("id");
+    $em = $this->getDoctrine()->getManager();
+
+    $pedido=$this->getDoctrine()->getRepository(Pedido::class)->findOneByIdpedido($id);
+
+    $detalles=$this->getDoctrine()->getRepository(Detallepedido::class)->findByPedidopedido($pedido);
+    
+    foreach ($detalles as $detalle) {
+      $em->remove($detalle);
+      $em->flush();
+    }
+
+    $em->remove($pedido);
+    $em->flush();
+
+    return new Response("Pedido cancelado");
+  }
+
+  public function misPedidosAction(Request $request){
+    $user = $this->get('security.token_storage')->getToken()->getUser();
+    $cliente=$this->getDoctrine()->getRepository(Cliente::class)->findOneByUsuariousuario($user);
+
+    $pedidos=$this->getDoctrine()->getRepository(Pedido::class)->findBy(array('clientecliente'=>$cliente,'estado'=>1));
+
+    return $this->render('cliente/misPedidos.html.twig',array(
+      'pedidos'=>$pedidos
+    ));
+  }
+
+
 
   
 
