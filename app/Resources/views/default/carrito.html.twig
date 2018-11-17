@@ -58,24 +58,23 @@
     </form>
 
     <h3>Total <span class="badge badge-secondary">Q. {{pedido.Total}}</span></h3><br>
-        <button class="btn btn-raised btn-success">
+        <button class="btn btn-raised btn-success" onclick="carrito_pedir()">
       <i class="fa fa-arrow-right"></i> Pedir
     </button>
-    <button class="btn btn-raised btn-danger">
+    <button class="btn btn-raised btn-danger" onclick="carrito_cancelar()">
       <i class="fa fa-ban"></i> Cancelar
     </button>
-    <br><br>
+    <br>
+    <button class="btn btn-raised btn-primary btn-lg" onclick="catalogo_ir()">
+        Catalogo
+      </button>  
 
     
       </div>
       
     </div>
 
-    <div class="container-fluid">
-      <button class="btn btn-raised btn-primary btn-lg" onclick="catalogo_ir()">
-        Catalogo
-      </button>  
-    </div>
+   
 
   {% endif %}
 
@@ -87,10 +86,7 @@
       </button>  
     </div>
       
-  {% endif %}
-  
-  
-    
+  {% endif %} 
 
   
   </div>
@@ -128,17 +124,50 @@
   }
 
   function carritoverborrar(idemp){
-      $.ajax({
-                type: "POST",
-                url: "{{path('carroVista')}}",
-                data:{ 
-                  id:idemp
-                },
-                success: function (html) {
-                  $("#content-page").html(html); 
-                }
-            });
+    $.ajax({
+      type: "POST",
+      url: "{{path('carroVista')}}",
+      data:{ 
+        id:idemp
+      },
+      success: function (html) {
+        $("#content-page").html(html); 
+      }
+    });
+  }
 
+  function carrito_pedir(){
+    var env=$("#envio").val();
+    if(env==""){
+      alert("Debe ingresar direccion de envio");
+    }else{
+      $.ajax({
+        type: "POST",
+        url: "{{path('solicitarPedido')}}",
+        data:{ 
+          id:"{{pedido.Idpedido}}",
+          tipo:$("#tipopago").val(),
+          envio:$("#envio").val()
+        },
+        success: function () {
+          catalogo_ir();
+        }
+      });
     }
+    
+  }
+
+  function carrito_cancelar(){
+    $.ajax({
+      type: "POST",
+      url: "{{path('cancelarPedido')}}",
+      data:{ 
+        id:"{{pedido.Idpedido}}"
+      },
+      success: function () {
+        catalogo_ir();
+      }
+    });
+  }
 
 </script>

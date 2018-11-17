@@ -137,6 +137,18 @@ guardarCliente:
   path: /guardarCliente
   defaults: { _controller: AppBundle:Cliente:guardarCliente }
 
+solicitarPedido:
+  path: /solicitarPedido
+  defaults: { _controller: AppBundle:Cliente:solicitarPedido }
+
+cancelarPedido:
+  path: /cancelarPedido
+  defaults: { _controller: AppBundle:Cliente:cancelarPedido }
+
+detallePedidohecho:
+  path: /detallePedidohecho
+  defaults: { _controller: AppBundle:Cliente:detallePedidohecho }
+
 #funciones Generales
 
 principal:

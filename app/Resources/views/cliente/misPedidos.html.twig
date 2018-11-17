@@ -3,6 +3,7 @@
 {% block title %}Mis Pedidos{% endblock %}
 
 {% block body %}
+
 <div class="container-fluid" style="margin-top: 60px;">
     <h1 class="alert alert-primary">Mis pedidos</h1>
 </div>
@@ -25,7 +26,7 @@
                     <td>{{pedido.Fecha | date('d/m/Y')}}</td>
                     <td>Q. {{pedido.Total}}</td>
                     <td>
-                        <button class="btn btn-raised btn-secondary">
+                        <button class="btn btn-raised btn-secondary" onclick="mostrar_detalles({{pedido.Idpedido}})" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                             <i class="fas fa-info-circle"></i> Detalles
                         </button>
                     </td>
@@ -36,4 +37,44 @@
         </table>
     </div>
 </div>
+
+<div class="collapse container-fluid" id="collapseExample">
+  <div class="card card-body bg-secondary mb-3">
+    <div class="container-fluid" id="contenido_detalle">
+        
+    </div>
+  </div>
+  <div class="card-footer text-muted">
+    <button class="btn btn-raised btn-secondary"  type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        <i class="far fa-eye-slash"></i> ocultar
+    </button>
+  </div>
+</div>
+
+
+
+
+
+
 {% endblock %}
+
+{% block script_extra %}
+<script type="text/javascript">
+        function mostrar_detalles(idp){
+            $.ajax({
+                type: "POST",
+                url: "{{path('detallePedidohecho')}}",
+                data:{ 
+                    id:idp
+                },
+                success: function (html) {
+                    $("#contenido_detalle").html(html);
+                }
+            });
+            
+        }
+
+    </script>
+{% endblock %}
+
+

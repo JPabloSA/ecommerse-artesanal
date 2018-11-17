@@ -10,7 +10,7 @@ use AppBundle\Entity\Colaborador;
 use AppBundle\Entity\Empresa;
 use AppBundle\Entity\Cliente;
 use Symfony\Component\HttpFoundation\Response;
-use Proxies\__CG__\AppBundle\Entity\Pedido;
+use AppBundle\Entity\Pedido;
 use AppBundle\Entity\Detallepedido;
 
 class ClienteController extends Controller
@@ -72,10 +72,14 @@ class ClienteController extends Controller
 
   public function solicitarPedidoAction(Request $request){
     $id=$request->request->get("id");
+    $tipo=$request->request->get("tipo");
+    $envio=$request->request->get("envio");
     $em = $this->getDoctrine()->getManager();
 
     $pedido=$this->getDoctrine()->getRepository(Pedido::class)->findOneByIdpedido($id);
 
+    $pedido->setEnvio($envio);
+    $pedido->setTipopago($tipo);
     $pedido->setEstado(1);
     $em->flush();
 
@@ -111,6 +115,19 @@ class ClienteController extends Controller
     return $this->render('cliente/misPedidos.html.twig',array(
       'pedidos'=>$pedidos
     ));
+  }
+
+  public function detallePedidohechoAction(Request $request){
+    $id=$request->request->get("id");
+    $pedido=$this->getDoctrine()->getRepository(Pedido::class)->findOneByIdpedido($id);
+    $detalles=$this->getDoctrine()->getRepository(Detallepedido::class)->findByPedidopedido($pedido);
+
+    return $this->render('cliente/detallePedidohecho.html.twig',array(
+      'pedido'=>$pedido,
+      'detalles'=>$detalles
+    ));
+   
+ 
   }
 
 

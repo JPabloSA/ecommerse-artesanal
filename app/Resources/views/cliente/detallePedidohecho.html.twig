@@ -1,0 +1,32 @@
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Detalle Pedido</h5>
+    <h6 class="card-subtitle mb-2 text-muted">{{pedido.Empresaempresa.Nombre}}</h6>
+    <div class="table-responsive">
+        <table class="table table-borderless">
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Precio Unitario</th>
+                    <th>Cantidad</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for detalle in detalles %}
+                <tr>
+                    <td>{{detalle.Productoproducto.Nombre}}</td>
+                    <td>{{detalle.Productoproducto.Precio}}</td>
+                    <td>{{detalle.Cantidad}}</td>
+                    <td>{{detalle.Total}}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+  </div>
+  <div class="card-footer text-muted">
+    Total {{pedido.Total}}
+  </div>
+</div>
+            

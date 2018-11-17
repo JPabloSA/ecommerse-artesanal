@@ -89,8 +89,6 @@ class DefaultController extends Controller
         $pedido=$pedidos[0];
       }
       
-      
-      
       $detalle = $this->getDoctrine()->getRepository(Detallepedido::class)->findByPedidopedido($pedido);  
       
       
@@ -112,41 +110,44 @@ class DefaultController extends Controller
       $cliente = $this->getDoctrine()->getRepository(Cliente::class)->findOneByUsuariousuario($user);
       $empresa = $this->getDoctrine()->getRepository(Empresa::class)->findOneByIdempresa($id);
 
-      $pedidos = $this->getDoctrine()->getRepository(Pedido::class)->findOneByclientecliente($cliente);
+      $pedidos = $this->getDoctrine()->getRepository(Pedido::class)->findOneBy(array(
+        'clientecliente'=>$cliente,
+        'empresaempresa'=>$empresa,
+        'estado'=>0
+      ));
 //chequea si existe un pedido hecho por el cliente logueado
 //si ni existe lo crea y crea tambien el primer detalle
-      if (!$pedidos) {
+      if (count($pedidos) == 0) {
         $em = $this->getDoctrine()->getManager();
-              $pedido = new Pedido();
-              $pedido->setFecha($this->updated = new \DateTime("now"));
-              $pedido->setTotal(0);
-              $pedido->setEnvio('pendiente');
-              $pedido->setEstado(0);
-              $pedido->setEmpresaempresa($empresa);
-              $pedido->setClientecliente($cliente);
-              $pedido->setCodigopedido(1);
-                // tell Doctrine you want to (eventually) save the Product (no queries yet)
-              $em->persist($pedido);
-              $em->flush();
-//vuelve a buscar los datos del pedido que se agrego a la BD para mandarselo a detalle
-              $productoD = $this->getDoctrine()->getRepository(Producto::class)->findOneByIdproducto($id2);
-              $pedidoRefresh = $this->getDoctrine()->getRepository(Pedido::class)->findOneByclientecliente($cliente);
+        $pedido = new Pedido();
+        $pedido->setFecha($this->updated = new \DateTime("now"));
+        $pedido->setTotal(0);
+        $pedido->setEnvio('pendiente');
+        $pedido->setEstado(0);
+        $pedido->setEmpresaempresa($empresa);
+        $pedido->setClientecliente($cliente);
+        $pedido->setCodigopedido(1);
+        // tell Doctrine you want to (eventually) save the Product (no queries yet)
+        $em->persist($pedido);
+        $em->flush();
+        //vuelve a buscar los datos del pedido que se agrego a la BD para mandarselo a detalle
+        $productoD = $this->getDoctrine()->getRepository(Producto::class)->findOneByIdproducto($id2);
+        //$pedidoRefresh = $this->getDoctrine()->getRepository(Pedido::class)->findOneByclientecliente($cliente);
 
-              $detallepedido = new Detallepedido();
-              $detallepedido->setPedidopedido($pedidoRefresh);
-              $detallepedido->setProductoproducto($productoD);
-              $detallepedido->setCantidad($cantidad);
-              $detallepedido->setTotal($productoD->getPrecio()*$cantidad);
-              // tell Doctrine you want to (eventually) save the Product (no queries yet)
-              $em->persist($detallepedido);
-              $em->flush();
-              $pedido->setTotal($pedido->getTotal()+$detallepedido->getTotal());
-              $em->flush();
+        $detallepedido = new Detallepedido();
+        $detallepedido->setPedidopedido($pedido);
+        $detallepedido->setProductoproducto($productoD);
+        $detallepedido->setCantidad($cantidad);
+        $detallepedido->setTotal($productoD->getPrecio()*$cantidad);
+        // tell Doctrine you want to (eventually) save the Product (no queries yet)
+        $em->persist($detallepedido);
+        $em->flush();
+        $pedido->setTotal($pedido->getTotal()+$detallepedido->getTotal());
+        $em->flush();
       }
       //si esta creadao y estado es 0 entonces ya solo envia datos a detalles
       //se va con un solo if
-      if ($pedidos) {
-      if ($pedidos->getEstado() === 0) {
+      if (count($pedidos) != 0) {
         $em = $this->getDoctrine()->getManager();
         $productoD = $this->getDoctrine()->getRepository(Producto::class)->find($id2);
 
@@ -160,7 +161,7 @@ class DefaultController extends Controller
         $em->flush();
         $pedidos->setTotal($pedidos->getTotal()+$detallepedido->getTotal());
         $em->flush();
-      }
+      
     }
     $categoria = $this->getDoctrine()->getRepository(Categoria::class)->findOneByEmpresaempresa($empresa);
      $productos = $this->getDoctrine()->getRepository(Producto::class)->findByCategoriacategoria($categoria);
@@ -178,6 +179,13 @@ class DefaultController extends Controller
     $em->flush();
     $em->remove($detalle);
     $em->flush();  
+
+    $detallesped = $this->getDoctrine()->getRepository(Detallepedido::class)->findByPedidopedido($pedido);
+    if(count($detallesped)==0){
+      $em->remove($pedido);
+      $em->flush();
+    }
+
 
     return new Response("hecho");
 
