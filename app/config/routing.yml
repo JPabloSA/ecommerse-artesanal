@@ -95,6 +95,14 @@ pedidosRecepcion:
   path: /pedidosRecepcion
   defaults: { _controller: AppBundle:Recepcion:pedidosRecepcion }
 
+detallePedidonuevo:
+  path: /detallePedidonuevo
+  defaults: { _controller: AppBundle:Recepcion:detallePedidonuevo }
+
+pedidoConfirmar:
+  path: /pedidoConfirmar
+  defaults: { _controller: AppBundle:Recepcion:pedidoConfirmar }
+
 bodegaRecepcion:
   path: /bodegaRecepcion
   defaults: { _controller: AppBundle:Recepcion:bodegaRecepcion }
@@ -103,11 +111,31 @@ entregasRecepcion:
   path: /entregasRecepcion
   defaults: { _controller: AppBundle:Recepcion:entregasRecepcion}
 
+detallePedidoentrega:
+  path: /detallePedidoentrega
+  defaults: { _controller: AppBundle:Recepcion:detallePedidoentrega }
+
+pedidoEntregar:
+  path: /pedidoEntregar
+  defaults: { _controller: AppBundle:Recepcion:pedidoEntregar }
+
 
 #funciones de bodega de la empresas
 homeBodega:
   path: /homeBodega
   defaults: { _controller: AppBundle:Bodega:homeBodega }
+
+detallePedidoconfirmado:
+  path: /detallePedidoconfirmado
+  defaults: { _controller: AppBundle:Bodega:dellePedidoconfirmado }
+
+pedidoAsignafecha:
+  path: /detalleAsignafecha
+  defaults: { _controller: AppBundle:Bodega:pedidoAsignafecha }
+
+pedidoListobodega:
+  path: /pedidoListobodega
+  defaults: { _controller: AppBundle:Bodega:pedidoListobodega }
 
 #funciones de produccion de la empresa
 homeProduccion:

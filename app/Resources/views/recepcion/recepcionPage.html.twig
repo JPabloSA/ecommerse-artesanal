@@ -43,10 +43,10 @@
                   <a href="#" id="pedidos_page">
                     <i><img class="img-rounded" src="{{asset('public/img/icons/delivery.png')}}"></i> Pedidos</a>
               </li>
-              <li>
+              <!--<li>
                   <a href="#" id="bodega_page">
                     <i><img class="img-rounded" src="{{asset('public/img/icons/warehouse.png')}}"></i> Inventario</a>
-              </li>
+              </li>-->
               <li>
                   <a href="#" id="entregas_page">
                     <i><img class="img-rounded" src="{{asset('public/img/icons/product.png')}}"></i> Entregas</a>
@@ -74,7 +74,7 @@
 <script type="text/javascript">
 
       $(document).ready(function() {
-        $("#page-content-wrapper").load('{{path('homeRecepcion')}}');
+        $("#page-content-wrapper").load('{{path('pedidosRecepcion')}}');
         $('#homerecepcion_page').click(function(){
             $("#page-content-wrapper").load('{{path('homeRecepcion')}}');
         });

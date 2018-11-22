@@ -1,0 +1,92 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="container-fluid">
+            <h1 class="alert alert-info">Detalles pedido</h1>
+        </div>
+
+        <div class="container-fluid">
+            <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Cliente</th>
+                        <th>Telefono</th>
+                        <th>Fecha</th>
+                        <th>Envio</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{pedido.Clientecliente.Nombre}}</td>
+                        <td>{{pedido.Clientecliente.Telefono}}</td>
+                        <td>{{pedido.Fecha | date("d-m-Y")}}</td>
+                        <td>{{pedido.Envio}}</td>
+                        <td>Q. {{pedido.Total}}</td>
+                    </tr>
+                </tbody>
+            </table>      
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for detalle in detalles %}
+                        <tr>
+                            <td>{{detalle.Productoproducto.Nombre}}</td>
+                            <td>{{detalle.Cantidad}}</td>
+                            <td>{{detalle.Total}}</td>
+                        </tr>    
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+
+            <fieldset class="form-group">
+                <label for="boleta" class="bmd-label-placeholder">Boleta</label>
+                <input type="text" class="form-control" id="boleta" placeholder="Ingrese numero de boleta">
+            </fieldset>
+            <button class="btn btn-raised btn-success btn-lg">
+                <i class="fas fa-check-circle"></i> Confirmar
+            </button>
+        </div>
+
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+function confirmar_pedido(){
+    var env=$("#boleta").val();
+    if(env==""){
+      alert("Debe ingresar numero de boleta de deposito");
+    }else{
+      $.ajax({
+        type: "POST",
+        url: "{{path('pedidoConfirmar')}}",
+        data:{ 
+          id:"{{pedido.Idpedido}}",
+          boleta:$("#boleta").val()
+        },
+        success: function () {
+          $("#page-content-wrapper").load('{{path('pedidosRecepcion')}}');
+        }
+      });
+    }
+    
+  }
+
+</script>

@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use AppBundle\Entity\Usuario;
 use AppBundle\Entity\Colaborador;
 use AppBundle\Entity\Empresa;
+use AppBundle\Entity\Pedido;
+use Proxies\__CG__\AppBundle\Entity\Detallepedido;
 
 class RecepcionController extends Controller
 {
@@ -52,11 +54,36 @@ class RecepcionController extends Controller
     }
 
     public function pedidosRecepcionAction(){
-      return $this->render('recepcion/pedidosRecepcion.html.twig');
+      $empresa=$this->obtenerEmpresa();
+      $pedidos=$this->getDoctrine()->getRepository(Pedido::class)->findBy(array(
+        'empresaempresa' => $empresa, 
+        'estado' => 1
+      ));
+      return $this->render('recepcion/pedidosRecepcion.html.twig',array(
+        'pedidos' => $pedidos
+      ));
+    }
+
+    public function detallePedidonuevoAction(Request $request){
+      $id=$request->request->get("id");
+      $pedido=$this->getDoctrine()->getRepository(Pedido::class)->findOneByIdpedido($id);
+      $detalles=$this->getDoctrine()->getRepository(Detallepedido::class)->findByPedidopedido($pedido);
+      
+      return $this->render('recepcion/detallePedidonuevo.html.twig',array(
+        'pedido'=>$pedido,
+        'detalles'=>$detalles
+      ));
     }
 
     public function entregasRecepcionAction(){
-      return $this->render('recepcion/entregasRecepcion.html.twig');
+      $empresa=$this->obtenerEmpresa();
+      $pedidos=$this->getDoctrine()->getRepository(Pedido::class)->findBy(array(
+        'empresaempresa' => $empresa, 
+        'estado' => 3
+      ));
+      return $this->render('recepcion/entregasRecepcion.html.twig',array(
+        'pedidos' => $pedidos,
+      ));
     }
 
     public function bodegaRecepcionAction(){
